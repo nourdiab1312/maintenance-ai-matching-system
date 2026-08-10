@@ -1,0 +1,17 @@
+__pycache__/
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# Data, artifacts & production packages
+maintenance_ai_production_clean/
+maintenance_matching_system_final/
+run_stage1_production/
+run_stage1c_v32/
+Fake Image Detection/
+*.joblib
+*.pt
+*.pth
+*.csv
+
+.DS_Store

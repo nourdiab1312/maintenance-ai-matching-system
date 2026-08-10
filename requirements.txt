@@ -1,0 +1,21 @@
+numpy
+pandas
+scipy
+scikit-learn
+scikit-image
+xgboost
+joblib
+tqdm
+matplotlib
+
+# Deep learning pipeline
+torch
+torchvision
+timm
+ultralytics
+
+# NLP / text matching
+sentence-transformers
+
+# UI
+gradio
