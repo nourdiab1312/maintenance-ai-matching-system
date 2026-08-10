@@ -10,7 +10,7 @@ When a customer submits a maintenance request, they upload a photo and describe 
 
 | | Classical ML Pipeline | Deep Learning Pipeline |
 |---|---|---|
-| Notebooks | 4 notebooks (`notebooks/ml_pipeline/`) | 1 notebook (`notebooks/dl_pipeline/`) |
+| Notebooks | 4 notebooks (`ml_pipeline/`) | 1 notebook (`dl_pipeline/`) |
 | Visual stage | Handcrafted features (HOG/LBP/color/texture) + XGBoost/SVM ensemble + one-vs-rest verifiers | Deep CNN classifiers (ResNet50 best, vs. EfficientNet-B0, MobileNetV3, YOLO11-cls) |
 | Text stage | TF-IDF + engineered features + WOA-optimized Stacking ensemble | MiniLM embeddings + TF-IDF + keyword features, hybrid ML fusion |
 | Decision layer | Rule-based fusion across 3 stages (1A relevance → 1C category verification → Stage 2 text) | Rule-based fusion across 2 stages (image category vs. text category) |
@@ -21,7 +21,7 @@ Both pipelines solve the same problem end-to-end; they exist as parallel experim
 
 ## Classical ML Pipeline
 
-![Full ML System Pipeline](assets/ml_full_pipeline_flowchart.png)
+![Full ML System Pipeline](ml_full_pipeline_flowchart.png)
 
 | Notebook | Stage | What it does |
 |---|---|---|
@@ -33,26 +33,26 @@ Both pipelines solve the same problem end-to-end; they exist as parallel experim
 ### ML Pipeline Results
 
 **Stage 1A — Image Relevance Detection** (5,026 images; best: XGBoost + SVM ensemble)
-![Stage 1A Results](assets/ml_stage1a_results.png)
+![Stage 1A Results](ml_stage1a_results.png)
 - Cross-validation: 95.47% accuracy, 0.9881 ROC AUC
 - Final test: 93.64% accuracy, 92.10% F1
 - Tri-state output coverage: 88.57% (accept precision 91.20%, reject precision 98.96%)
 
 **Stage 1C — Visual Category Verification** (2,005 relevant images; one-vs-rest per category)
-![Stage 1C Results](assets/ml_stage1c_results.png)
+![Stage 1C Results](ml_stage1c_results.png)
 - Strongest category verifier: Painting (نقاشة) — 87.03% accuracy, 0.9419 ROC AUC
 - Most challenging category: Plumbing (سباكة) — high precision (83.33%) but low recall (7.04%) as a standalone verifier
 - Fusion combines a general verifier, a multiclass score, and pairwise specialist scores
 
 **Stage 2 — Arabic Text Matching** (3,888 texts, 21,143 pairs after augmentation; best: WOA Optimized Stacking V3)
-![Stage 2 Results](assets/ml_stage2_results.png)
+![Stage 2 Results](ml_stage2_results.png)
 - Best holdout results: 98.37% accuracy, 97.82% F1, 0.9977 ROC AUC
 
 ---
 
 ## Deep Learning Pipeline
 
-![Full DL System Pipeline](assets/dl_full_pipeline_flowchart.png)
+![Full DL System Pipeline](dl_full_pipeline_flowchart.png)
 
 A single end-to-end notebook (`dl_full_system_stage1_stage2_decision_engine.ipynb`) implementing all 3 stages:
 
@@ -65,15 +65,15 @@ Also includes a Gradio interface for interactive testing with image + Arabic tex
 ### DL Pipeline Results
 
 **Stage 1 — Visual DL Classifier** (4,958 images; best: ResNet50)
-![DL Stage 1 Results](assets/dl_stage1_results.png)
+![DL Stage 1 Results](dl_stage1_results.png)
 - 94.76% accuracy, 90.18% macro F1, **98.90% irrelevant-image recall** (1.10% false accept rate)
 
 **Stage 2 — Arabic Text Classifier v2** (5,903 texts; best: Calibrated Linear SVC)
-![DL Stage 2 Results](assets/dl_stage2_results.png)
+![DL Stage 2 Results](dl_stage2_results.png)
 - 94.59% test accuracy, 94.75% macro F1, **100% on a 30-case user-style stress test**
 
 **Overall System Summary**
-![DL Overall Summary](assets/dl_overall_summary.png)
+![DL Overall Summary](dl_overall_summary.png)
 
 ---
 
